@@ -36,8 +36,8 @@
 
 ### 1. Repository'yi İndirin
 ```bash
-git clone https://github.com/kullaniciadi/hand-controller.git
-cd hand-controller
+git clone [https://github.com/kullaniciadi/hand-controller.git](https://github.com/Senturk61/HandController)
+cd HandController
 ```
 
 ### 2. Gerekli Kütüphaneleri Kurun
