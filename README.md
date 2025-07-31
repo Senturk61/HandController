@@ -161,22 +161,16 @@ Program çalışırken şu bilgileri gösterir:
 
 ## 🔄 Versiyon Geçmişi
 
-### v4.0 (Güncel)
+### v1.0 (Güncel)
 - ✅ Pinch hareketi ile ses kontrolü
 - ✅ Stabilite optimizasyonu
 - ✅ Gelişmiş hata yönetimi
 - ✅ Çoklu kamera desteği
-
-### v3.0
 - ✅ Peace işareti play/pause
 - ✅ Yumruk acil kontrolü
 - ✅ Cooldown sistemi
-
-### v2.0
 - ✅ MediaPipe entegrasyonu
 - ✅ Temel el tanıma
-
-### v1.0
 - ✅ İlk versiyon
 - ✅ Basit hareket kontrolü
 
