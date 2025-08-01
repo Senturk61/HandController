@@ -1,193 +1,125 @@
-# 🎮 Hand Controller v4 - El Hareketi ile Bilgisayar Kontrolü
+# El Hareketi Kontrolcüsü - GUI v2.0
 
-**Gelişmiş el hareketlerini kullanarak bilgisayarınızın ses seviyesini ve müzik çalarını kontrol edin!**
+<img width="1499" height="785" alt="image" src="https://github.com/user-attachments/assets/74a238ec-6187-4ed1-9acf-2d1f7a3304b3" />
 
-[![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://python.org)
-[![OpenCV](https://img.shields.io/badge/OpenCV-4.0+-green.svg)](https://opencv.org)
-[![MediaPipe](https://img.shields.io/badge/MediaPipe-Latest-red.svg)](https://mediapipe.dev)
+<img width="1920" height="1031" alt="image" src="https://github.com/user-attachments/assets/f2827cca-c3eb-449d-aa2d-f85bda2b8596" />
 
-## 🌟 Özellikler
 
-### 🔊 Ses Kontrolü
-- **🤏 Pinch Hareketi**: Başparmak ve işaret parmağını yaklaştırıp uzaklaştırarak ses seviyesini kontrol edin
-- **Stabilize Algoritma**: Titreşimi önleyen akıllı filtreleme sistemi
-- **Görsel Geri Bildirim**: Renk kodlu ses çubuğu (yeşil → sarı → kırmızı)
-- **Gerçek Zamanlı Gösterge**: Parmak mesafesi ve ses seviyesi bilgileri
+Bu proje, `OpenCV` ile görüntü işlemeyi, `MediaPipe` ile gerçek zamanlı el takibini ve `PySide6` ile tam teşekküllü bir kullanıcı arayüzünü bir araya getirir. Arka planda çalışan sağlam bir multithread yapısı sayesinde, arayüz donmadan akıcı bir kontrol deneyimi sunar.
 
-### 🎵 Müzik Kontrolü
-- **✌️ Peace İşareti**: 1.5 saniye tutarak güvenli play/pause
-- **✊ Yumruk**: Anında acil play/pause (2 saniye cooldown)
-- **Döngü Koruması**: Kazara tekrar tetiklenmesi önlendi
+## ✨ Öne Çıkan Özellikler
 
-### 🛡️ Güvenlik & Stabilite
-- **Akıllı Kütüphane Kontrolü**: Eksik kütüphaneler olsa bile çalışır
-- **Çoklu Kamera Desteği**: Otomatik kamera algılama (0, 1, 2)
-- **Kapsamlı Hata Yönetimi**: Crash-proof tasarım
-- **Güvenli Çıkış**: Q, ESC veya Ctrl+C ile temiz kapatma
+- **Modern Arayüz:** PySide6 ile oluşturulmuş, kullanıcı dostu ve sezgisel kontrol paneli.
+- **Canlı Kontrol:** Arayüz üzerinden el takibini başlatma, durdurma ve ayarları anlık olarak değiştirme.
+- **Akıcı Ses Ayarı:** "Pinch" hareketiyle, titreşimi engelleyen yumuşatma filtresi sayesinde hassas ses kontrolü.
+- **Ayarlanabilir Hassasiyet:** Arayüzdeki kaydıraç ile ses kontrolünün yumuşaklığını canlı olarak ayarlayabilme.
+- **Net Medya Hareketleri:** Yanlış algılamaları önleyen, sezgisel Play/Pause ve Şarkı Değiştirme hareketleri.
+- **Olay Kayıt Paneli:** Algılanan tüm hareketleri ve uygulama durumunu anlık olarak gösteren log ekranı.
+- **Sağlam Mimari:** Arayüz (GUI) ve el algılama (Worker) işlemlerini ayıran `multithread` yapı sayesinde %100 kararlı çalışma.
+- **Kolay Dağıtım:** PyInstaller ile tek bir `.exe` dosyasına dönüştürülerek kolayca paylaşılabilme.
 
-## 📋 Sistem Gereksinimleri
+## 🖐️ Tanımlı Hareketler
 
-- **İşletim Sistemi**: Windows 10/11
-- **Python**: 3.7 veya üzeri
-- **Kamera**: USB veya dahili webcam
-- **RAM**: Minimum 4GB (8GB önerilir)
+| Hareket | Eylem | Açıklama |
+| :---: | :--- | :--- |
+| 🤏 **Pinch** | Ses Ayarı | Başparmak ve işaret parmağınız arasındaki mesafeyi değiştirerek sesi hassas bir şekilde ayarlayın. |
+| ✋ **Açık El** | Play / Pause | Elinizi kameraya doğru beş parmağınız açık şekilde gösterin. (Tek seferlik tetiklenir) |
+| 👆 + ↔️ **Kaydırma** | Şarkı Değiştirme | İşaret parmağınızı kaldırın ve elinizi sağa (sonraki) veya sola (önceki) doğru kaydırın. |
 
-## 🚀 Kurulum
+## 🚀 Kurulum (Kaynak Koddan Çalıştırmak İçin)
 
-### 1. Repository'yi İndirin
-```bash
-git clone [https://github.com/kullaniciadi/hand-controller.git](https://github.com/Senturk61/HandController)
-cd HandController
-```
+Projeyi kendi bilgisayarınızda geliştirmek veya çalıştırmak için aşağıdaki adımları izleyin:
 
-### 2. Gerekli Kütüphaneleri Kurun
-```bash
-# Temel kütüphaneler
-pip install opencv-python mediapipe numpy
+1.  **Projeyi klonlayın:**
+    ```bash
+    git clone [https://github.com/Senturk61/HandController.git](https://github.com/Senturk61/HandController.git)
+    cd HandController
+    ```
 
-# Ses kontrolü için (Windows)
-pip install pycaw comtypes
+2.  **Sanal bir ortam oluşturun ve aktive edin (Tavsiye edilir):**
+    ```bash
+    python -m venv venv
+    # Windows için:
+    .\venv\Scripts\activate
+    ```
 
-# Klavye kontrolü için
-pip install pynput
-```
+3.  **Gerekli kütüphaneleri `requirements.txt` dosyası ile yükleyin:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+    *(Eğer `requirements.txt` dosyası yoksa, aşağıdaki komutlarla manuel olarak kurabilirsiniz.)*
+    ```bash
+    pip install opencv-python mediapipe numpy pyside6 pycaw comtypes pynput
+    ```
 
-### 3. Programı Çalıştırın
-```bash
-python HandController.py
-```
+## 💻 Kullanım
 
-**⚠️ Önemli**: Ses kontrolü için programı **yönetici olarak** çalıştırmanız gerekebilir.
+### A. `.exe` Dosyası ile (En Kolay Yöntem)
+1.  GitHub sayfasındaki "Releases" bölümünden en son `.exe` dosyasını indirin.
+2.  **"El Hareketi Kontrolcusu.exe"** dosyasına çift tıklayarak çalıştırın.
+3.  Arayüzdeki **"Algılamayı Başlat"** butonuna basın.
 
-## 🎯 Kullanım Kılavuzu
+### B. Kaynak Koddan
+1.  Kurulum adımlarını tamamladığınızdan emin olun.
+2.  Terminalde aşağıdaki komutu çalıştırın:
+    ```bash
+    python HandControllerGUI.py
+    ```
+3.  Arayüzdeki **"Algılamayı Başlat"** butonuna basın.
 
-### Ses Kontrolü 🔊
-1. **Kameranın karşısına geçin**
-2. **Başparmak ve işaret parmağınızı yaklaştırın** (Pinch hareketi)
-3. **Parmakları yaklaştırın** → Ses azalır
-4. **Parmakları uzaklaştırın** → Ses artar
-5. **Stabilite göstergesi** (●/○) ile değişiklikleri takip edin
+## 🔧 `.exe` Oluşturma
 
-### Müzik Kontrolü 🎵
+Projeyi dağıtılabilir tek bir `.exe` dosyası haline getirmek için:
 
-#### ✌️ Peace İşareti (Güvenli Mod)
-- İşaret ve orta parmağınızı kaldırın (V şekli)
-- **1.5 saniye** tutun
-- "HAZIRLANILIYOR..." mesajını bekleyin
-- Play/Pause komutu otomatik gönderilir
+1.  **PyInstaller'ı kurun:**
+    ```bash
+    pip install pyinstaller
+    ```
+2.  **`.spec` dosyasını oluşturun:** Terminalde ilk olarak aşağıdaki komutu çalıştırın. Bu komut `RecursionError` hatası vererek duracaktır, bu normaldir. Amacımız sadece `.spec` dosyasını oluşturmak.
+    ```bash
+    pyinstaller --windowed --name "El Hareketi Kontrolcusu" HandControllerGUI.py
+    ```
+3.  **`.spec` dosyasını düzenleyin:** Proje klasörünüzde oluşan `"El Hareketi Kontrolcusu.spec"` dosyasını bir metin düzenleyici ile açın ve en üst satırına şunu ekleyin:
+    ```python
+    import sys ; sys.setrecursionlimit(sys.getrecursionlimit() * 5)
+    ```
+4.  **`.spec` dosyası ile paketlemeyi tamamlayın (Tırnak işaretleri önemli!):**
+    ```bash
+    pyinstaller "El Hareketi Kontrolcusu.spec"
+    ```
+5.  Oluşturulan `.exe` dosyası `dist` klasörünün içinde yer alacaktır.
 
-#### ✊ Yumruk (Acil Mod)
-- Tüm parmakları kapalı tutun
-- **Anında** tetiklenir
-- 2 saniye cooldown vardır
+## 🛠️ Kullanılan Teknolojiler
 
-### Çıkış
-- **Q** tuşuna basın
-- **ESC** tuşuna basın
-- **Ctrl+C** ile durdurun
-
-## 🔧 Teknik Detaylar
-
-### Hareket Tanıma Algoritması
-```python
-# Pinch hareketi algılama
-thumb_index_distance = math.hypot(thumb_tip.x - index_tip.x, thumb_tip.y - index_tip.y)
-is_pinch_gesture = thumb_index_distance < 0.15
-
-# Stabilite kontrolü
-volume_change_cooldown = 0.1  # 100ms
-volume_threshold = 0.05       # %5 minimum değişim
-```
-
-### Ses Kontrolü Optimizasyonu
-- **100ms Cooldown**: Saniyede maksimum 10 değişiklik
-- **%5 Threshold**: Küçük titreşimler filtrelenir
-- **Adaptive Range**: 0.01-0.12 mesafe aralığı optimized
-
-### MediaPipe Landmark İndeksleri
-```python
-THUMB_TIP = 4      # Başparmak ucu
-INDEX_TIP = 8      # İşaret parmağı ucu
-MIDDLE_TIP = 12    # Orta parmak ucu
-RING_TIP = 16      # Yüzük parmağı ucu
-PINKY_TIP = 20     # Serçe parmağı ucu
-```
-
-## 🐛 Sorun Giderme
-
-### Kamera Bulunamadı
-```bash
-# Kamera indekslerini test edin
-python -c "import cv2; print([i for i in range(5) if cv2.VideoCapture(i).isOpened()])"
-```
-
-### Ses Kontrolü Çalışmıyor
-1. **Yönetici olarak çalıştırın**
-2. **Windows ses ayarlarını kontrol edin**
-3. **Antivirus yazılımı engelleme kontrolü**
-
-### MediaPipe Hatası
-```bash
-# MediaPipe'ı yeniden kurun
-pip uninstall mediapipe
-pip install mediapipe
-```
-
-### Performans Sorunları
-- **Kamera çözünürlüğünü düşürün**: `W_CAM, H_CAM = 640, 480`
-- **Detection confidence azaltın**: `min_detection_confidence=0.5`
-- **Arka plan uygulamalarını kapatın**
-
-## 📊 Debug Modu
-
-Program çalışırken şu bilgileri gösterir:
-- **Landmark sayısı**: El algılama durumu
-- **Parmak mesafesi**: Pinch hassasiyet kontrolü
-- **Ses seviyesi**: Gerçek zamanlı değerler
-- **Stabilite durumu**: ● (aktif) / ○ (beklemede)
-
-## 🎨 Görsel Göstergeler
-
-| Gösterge | Anlamı |
-|----------|--------|
-| 🤏 PINCH SES KONTROLU | Ses kontrolü aktif |
-| ✌️ PEACE PLAY/PAUSE | Peace hareketi algılandı |
-| ✊ ACIL PLAY/PAUSE | Yumruk hareketi tetiklendi |
-| ● Yeşil nokta | Ses değişiyor |
-| ○ Gri nokta | Stabil/beklemede |
-| Yeşil çubuk | Düşük ses (0-30%) |
-| Sarı çubuk | Orta ses (30-70%) |
-| Kırmızı çubuk | Yüksek ses (70-100%) |
+- **Python 3.11**
+- **PySide6:** Modern masaüstü arayüzü.
+- **OpenCV-Python:** Görüntü işleme ve kamera yönetimi.
+- **MediaPipe:** Gerçek zamanlı el takibi.
+- **pycaw & comtypes:** Windows için sistemsel ses kontrolü.
+- **pynput:** Klavye tuşlarını simüle ederek medya kontrolü.
 
 ## 🔄 Versiyon Geçmişi
 
-### v1.0 (Güncel)
-- ✅ Pinch hareketi ile ses kontrolü
-- ✅ Stabilite optimizasyonu
-- ✅ Gelişmiş hata yönetimi
-- ✅ Çoklu kamera desteği
-- ✅ Peace işareti play/pause
-- ✅ Yumruk acil kontrolü
-- ✅ Cooldown sistemi
-- ✅ MediaPipe entegrasyonu
-- ✅ Temel el tanıma
-- ✅ İlk versiyon
-- ✅ Basit hareket kontrolü
+### **v2.0 - GUI Sürümü (Güncel)**
+- ✅ PySide6 ile tam teşekküllü masaüstü arayüzüne geçildi.
+- ✅ Arayüz ve el algılama motoru için multithread mimari eklendi.
+- ✅ Başlat/Durdur butonu, hassasiyet kaydıracı ve olay kayıt paneli eklendi.
+- ✅ Şarkı değiştirme için "kaydırma" hareketi eklendi.
+- ✅ Play/Pause için "açık el" hareketi tanımlandı.
+- ✅ `.exe` paketleme talimatları güncellendi.
 
+### **v1.0 - Komut Satırı Sürümü**
+- ✅ OpenCV penceresi üzerinden temel görselleştirme.
+- ✅ "Pinch", "Yumruk" ve "Peace" hareketleri ile kontrol.
+- ✅ Titreşim önleyici stabilite algoritmaları.
+- ✅ Akıllı kütüphane ve çoklu kamera desteği.
 
-## 🙏 Teşekkürler
-
-- **Google MediaPipe** - El tanıma teknolojisi
-- **OpenCV** - Bilgisayar görüşü kütüphanesi  
-- **PyCaw** - Windows ses kontrolü
-- **PyNput** - Klavye kontrolü
-- 
 ---
 
 <div align="center">
 
 **⭐ Eğer bu proje faydalıysa yıldız vermeyi unutmayın! ⭐**
 
-Made with ❤️ by Isa Senturk
+Isa Senturk tarafından ❤️ ile yapılmıştır.
 
 </div>
